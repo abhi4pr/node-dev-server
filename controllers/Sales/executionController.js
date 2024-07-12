@@ -12,7 +12,7 @@ const salesBookingModel = require("../../models/Sales/salesBookingModel.js");
  */
 exports.createExecution = async (req, res) => {
     try {
-        const { sale_booking_id, start_date, end_date, commitment, created_by
+        const { sale_booking_id, start_date, end_date, commitment, created_by, story_view, impression, engagement, reach
         } = req.body;
 
         // Get distinct IDs from the database
@@ -33,7 +33,11 @@ exports.createExecution = async (req, res) => {
                 end_date: end_date,
                 execution_token: randomNumber,
                 commitment: commitment,
-                created_by: created_by
+                created_by: created_by,
+                story_view,
+                impression, 
+                engagement, 
+                reach
             }
             //obj push in array
             exeDataArray.push(exeDataObj);
@@ -87,7 +91,10 @@ exports.updateExecutionDetial = async (req, res) => {
     try {
         const { id } = req.params;
         const { sale_booking_id, record_service_id, start_date, end_date, execution_time, execution_date,
-            execution_done_by, execution_remark, commitment, updated_by } = req.body;
+            execution_done_by, execution_remark, commitment, updated_by, story_view,
+            impression, 
+            engagement, 
+            reach } = req.body;
 
         const executionUpdated = await executionModel.findByIdAndUpdate({
             _id: id
@@ -104,6 +111,10 @@ exports.updateExecutionDetial = async (req, res) => {
                 commitment,
                 updated_by,
                 execution_status: req.body.status,
+                story_view,
+                impression, 
+                engagement, 
+                reach
             }
         }, {
             new: true
@@ -157,6 +168,10 @@ exports.getExcutionList = async (req, res) => {
                 sale_booking_id: 1,
                 execution_token: 1,
                 execution_status: 1,
+                story_view: 1,
+                impression: 1, 
+                engagement: 1, 
+                reach: 1,
                 campaign_name: "$salesbookingmodelsData.campaign_name",
                 account_id: "$salesbookingmodelsData.account_id",
                 brand_id: "$salesbookingmodelsData.brand_id",
